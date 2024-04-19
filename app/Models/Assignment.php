@@ -6,16 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 use App\Models\Teacher;
-use App\Models\Student;
+use App\Models\Subject;
 
 class Assignment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['teache_id','subject_id','title','description'];
+    protected $fillable = ['teacher_id','subject_id','title','description'];
 
-    public function student() {
-        return $this->belongsTo(Student::class);
+    public function subject() {
+        return $this->belongsTo(Subject::class);
     }
 
     public function teacher() {

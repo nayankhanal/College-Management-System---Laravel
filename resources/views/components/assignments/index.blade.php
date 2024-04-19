@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Admin | Enrollments</title>
+  <title>Admin | Assignments</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -42,8 +42,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Enrollments Table
-        <small>List of Enrolled Students</small>
+        Assignments Table
+        <small>List of Assignments</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
@@ -60,10 +60,9 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Student</th>
+        <th>Subject</th>
         <th>Teacher</th>
         <th>Assignment</th>
-        <th>Description</th>
         <th>Action</th>
       </tr>
     </thead>
@@ -71,23 +70,39 @@
     @foreach($assignments as $assignment)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$assignment->student->user->name}}</td>
+        <td>{{$assignment->subject->name}}</td>
         <td>{{$assignment->teacher->user->name}}</td>
         <td>{{$assignment->title}}</td>
-        <td>{{$assignment->description}}</td>
         <td>
             <div class="row">
                 <div class="col-md-6">
-                    <a href="{{ route('assignemtns.edit', [$assignment->id]) }}">Edit</a>
+                    <a href="{{ route('assignments.edit', [$assignment->id]) }}">Edit</a>
                 </div>
                 <div class="col-md-6 text-right">
-                    <form action="{{ route('assignemtns.destroy', [$assignment->id]) }}" method="post">
+                    <form action="{{ route('assignments.destroy', [$assignment->id]) }}" method="post">
                         @method('delete')
                         @csrf
                         <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
                     </form>
                 </div>
             </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan='5'>
+          <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h4 class="panel-title">
+                  <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{$loop->iteration}}" style="font-weight: bold">Description</a>
+                </h4>
+              </div>
+              <div id="collapse{{$loop->iteration}}" class="panel-collapse collapse">
+                <!-- <div class="panel-body">{{html_entity_decode(strip_tags($assignment->description))}}</div> -->
+                <div class="panel-body">{!!$assignment->description!!}</div>
+              </div> 
+            </div>
+          </div>
         </td>
       </tr>
     @endforeach

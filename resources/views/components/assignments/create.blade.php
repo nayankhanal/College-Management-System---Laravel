@@ -52,12 +52,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Enroll Student
+      Give Assignments
         <!-- <small>Create Department</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Enrollments</a></li>
+        <li><a href="#">Assignments</a></li>
         <li class="active">Assign</li>
       </ol>
     </section>
@@ -67,33 +67,49 @@
     <!-- HERE THE MAIN FORM TO CREATE DEPARTMENT -->
 
 <div class="container">
-    <form action="{{route('enrollments.store')}}" method="post"><br><br>
+    <form action="{{route('assignments.store')}}" method="post"><br><br>
         @csrf
-    <div class="form-group">
-        <label for="student_id">Student</label>
-            <select name="student_id" id="student_id" class="form-control">
-                <option value="">Select Student</option>
-                @foreach($students as $student)
-                <option value="{{$student->id}}">{{$student->user->name}}</option>
-                @endforeach
-            </select>
-        @if($errors->has('student_id'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('student_id')}}</span>
+      <div class="form-group">
+          <label for="subject_id">Subject</label>
+              <select name="subject_id" id="subject_id" class="form-control">
+                  <option value="">Select Subject</option>
+                  @foreach($subjects as $subject)
+                  <option value="{{$subject->id}}">
+                    {{$subject->name}}
+                  </option>
+                  @endforeach
+              </select>
+          @if($errors->has('subject_id'))
+          <span class="help-block text-danger" style="color: red;">{{$errors->first('subject_id')}}</span>
+          @endif
+      </div>
+      <div class="form-group">
+          <label for="teacher_id">Teacher</label>
+              <select name="teacher_id" id="teacher_id" class="form-control">
+                  <option value="">Select Teacher</option>
+                  @foreach($teachers as $teacher)
+                  <option value="{{$teacher->id}}">{{$teacher->user->name}}</option>
+                  @endforeach
+              </select>
+          @if($errors->has('teacher_id'))
+          <span class="help-block text-danger" style="color: red;">{{$errors->first('teacher_id')}}</span>
+          @endif
+      </div>
+      <div class="form-group">
+        <label for="title">Assignment title</label>
+        <input type="text" name="title" value="{{old('title')}}" class="form-control" id="title" aria-describedby="title" placeholder="Enter assignment title">
+        @if($errors->has('title'))
+        <span class="help-block text-danger" style="color: red;">{{$errors->first('title')}}</span>
         @endif
-    </div>
-    <div class="form-group">
-        <label for="teacher_id">Teacher</label>
-            <select name="teacher_id" id="teacher_id" class="form-control">
-                <option value="">Select Course</option>
-                @foreach($teachers as $teacher)
-                <option value="{{$teacher->id}}">{{$teacher->user->name}}</option>
-                @endforeach
-            </select>
-        @if($errors->has('teacher_id'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('teacher_id')}}</span>
-        @endif
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+      <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="ckeditor form-control" name="description" value="{{old('description')}}" id="description" cols="30" rows="10" placeholder="Description here">{{old('description')}}</textarea>
+          @if($errors->has('description'))
+          <span class="help-block text-danger" style="color: red;">{{$errors->first('description')}}</span>
+          @endif
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
 
@@ -299,6 +315,8 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Include CKEditor script (CDN) -->
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <!-- jQuery 3 -->
 <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

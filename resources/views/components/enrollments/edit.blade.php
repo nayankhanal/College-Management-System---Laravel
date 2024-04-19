@@ -75,7 +75,7 @@
             <select name="student_id" id="student_id" class="form-control" style="pointer-events: none;">
                 <!-- <option value="">Select Student</option> -->
                 @foreach($enrollments as $enrolled)
-                <option value="{{$enrolled->student_id}}" {{$enrolled->student_id == $enrollment->student_id ? 'selected' : ''}}>{{$enrollment->student->user->name}}</option>
+                <option value="{{$enrollment->student_id}}" {{$enrolled->student_id == $enrollment->student_id ? 'selected' : ''}}>{{$enrollment->student->user->name}}</option>
                 @endforeach
             </select>
         <!-- @if($errors->has('user_id'))

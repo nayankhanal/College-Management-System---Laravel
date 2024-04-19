@@ -52,12 +52,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Enroll Student
+      Edit Assignment
         <!-- <small>Create Department</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Enrollments</a></li>
+        <li><a href="#">Assignments</a></li>
         <li class="active">Edit</li>
       </ol>
     </section>
@@ -67,15 +67,15 @@
     <!-- HERE THE MAIN FORM TO CREATE DEPARTMENT -->
 
 <div class="container">
-    <form action="{{route('enrollments.update', [$enrollment->id])}}" method="post"><br><br>
+    <form action="{{route('assignments.update', [$assignment->id])}}" method="post"><br><br>
         @method('put')
         @csrf
     <div class="form-group">
-        <label for="user_id">Student</label>
-            <select name="student_id" id="student_id" class="form-control" style="pointer-events: none;">
+        <label for="subject_id">Subject</label>
+            <select name="subject_id" id="subject_id" class="form-control" style="pointer-events: none;">
                 <!-- <option value="">Select Student</option> -->
-                @foreach($enrollments as $enrolled)
-                <option value="{{$enrolled->student_id}}" {{$enrolled->student_id == $enrollment->student_id ? 'selected' : ''}}>{{$enrollment->student->user->name}}</option>
+                @foreach($subjects as $subject)
+                <option value="{{$assignment->subject->id}}" {{$subject->id == $assignment->subject_id ? 'selected' : ''}}>{{$assignment->subject->name}}</option>
                 @endforeach
             </select>
         <!-- @if($errors->has('user_id'))
@@ -83,17 +83,31 @@
         @endif -->
     </div>
     <div class="form-group">
-        <label for="course_id">Course</label>
-            <select name="course_id" id="course_id" class="form-control">
-                <option value="">Select Course</option>
-                @foreach($courses as $course)
-                <option value="{{$course->id}}" {{$course->id == $enrollment->course->id ? 'selected' : ''}}>{{$course->name}}</option>
+        <label for="teacher_id">Teacher</label>
+            <select name="teacher_id" id="teacher_id" class="form-control" style="pointer-events: none;">
+                <option value="">Select Teacher</option>
+                @foreach($teachers as $teacher)
+                <option value="{{$teacher->id}}" {{$teacher->id == $assignment->teacher_id ? 'selected' : ''}}>{{$assignment->teacher->user->name}}</option>
                 @endforeach
             </select>
-        @if($errors->has('course_id'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('course_id')}}</span>
+        @if($errors->has('teacher_id'))
+        <span class="help-block text-danger" style="color: red;">{{$errors->first('teacher_id')}}</span>
         @endif
     </div>
+    <div class="form-group">
+        <label for="title">Assignment title</label>
+        <input type="text" name="title" value="{{old('title', $assignment->title)}}" class="form-control" id="title" aria-describedby="title" placeholder="Enter assignment title">
+        @if($errors->has('title'))
+        <span class="help-block text-danger" style="color: red;">{{$errors->first('title')}}</span>
+        @endif
+      </div>
+      <div class="form-group">
+          <label for="description">Description</label>
+          <textarea class="ckeditor form-control" name="description" id="description" cols="30" rows="10" placeholder="Description here">{{old('description', $assignment->description)}}</textarea>
+          @if($errors->has('description'))
+          <span class="help-block text-danger" style="color: red;">{{$errors->first('description')}}</span>
+          @endif
+      </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
@@ -300,6 +314,8 @@
 </div>
 <!-- ./wrapper -->
 
+<!-- Include CKEditor script (CDN) -->
+<script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
 <!-- jQuery 3 -->
 <script src="../../bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->

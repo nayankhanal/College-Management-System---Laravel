@@ -56,7 +56,7 @@
         </li> -->
         <li>
           <a href="{{route('departments.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Departments</span>
+            <i class="fa fa-regular fa-building"></i> <span>Departments</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -64,7 +64,7 @@
         </li>
         <li>
           <a href="{{route('users.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Users</span>
+            <i class="fa fa-solid fa-users"></i> <span>Users</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -72,7 +72,7 @@
         </li>
         <li>
           <a href="{{route('courses.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Courses</span>
+            <i class="fa fa-solid fa-graduation-cap"></i> <span>Courses</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -80,7 +80,7 @@
         </li>
         <li>
           <a href="{{route('subjects.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Subjects</span>
+            <i class="fa fa-solid fa-book"></i> <span>Subjects</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -88,7 +88,7 @@
         </li>
         <li>
           <a href="{{route('students.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Students</span>
+            <i class="fa fa-solid fa-user"></i> <span>Students</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -96,7 +96,7 @@
         </li>
         <li>
           <a href="{{route('teachers.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Teachers</span>
+            <i class="fa fa-solid fa-trophy"></i><span>Teachers</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -104,7 +104,7 @@
         </li>
         <li>
           <a href="{{route('enrollments.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Enrollments</span>
+            <i class="fa fa-regular fa-clipboard"></i> <span>Enrollments</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->
@@ -112,7 +112,7 @@
         </li>
         <li>
           <a href="{{route('assignments.index')}}">   <!-- pages/widgets.html -->
-            <i class="fa fa-th"></i> <span>Assignments</span>
+            <i class="fa fa-solid fa-check"></i> <span>Assignments</span>
             <!-- <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span> -->

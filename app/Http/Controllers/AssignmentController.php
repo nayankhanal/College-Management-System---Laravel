@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\Models\Assignment;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\Subject;
+use App\Http\Requests\AssignmentRequest;
+
+use Html2Text\Html2Text;
 
 class AssignmentController extends Controller
 {
@@ -16,6 +20,13 @@ class AssignmentController extends Controller
     public function index()
     {
         $assignments = Assignment::all();
+
+        // foreach ($assignments as $assignment) {
+        //     $html2Text = new Html2Text($assignment->description);
+        //     $plainDescription = $html2Text->getText();
+        //     $assignment->description = $plainDescription;
+        // }
+
         return view('components.assignments.index', compact('assignments'));
     }
 
@@ -24,9 +35,9 @@ class AssignmentController extends Controller
      */
     public function create()
     {
-        $students = Student::all();
+        $subjects = Subject::all();
         $teachers = Teacher::all();
-        return view('components.assignments.create', compact('students','teachers'));
+        return view('components.assignments.create', compact('subjects','teachers'));
     }
 
     /**
@@ -36,9 +47,9 @@ class AssignmentController extends Controller
     {
         try {
             Assignment::create($request->validated());
-            return redirect()->route('assignment.index')->with('success','Successfully given assignment!');
+            return redirect()->route('assignments.index')->with('success','Successfully given assignment!');
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            dd($e->getMessage());
             return redirect()->route('assignments.create')->with('error','Something went wrong during giving assignment! ');
         }
     }
@@ -56,9 +67,9 @@ class AssignmentController extends Controller
      */
     public function edit(Assignment $assignment)
     {
-        $students = Student::all();
+        $subjects = Subject::all();
         $teachers = Teacher::all();
-        return view('components.assignments.edit', compact('assignment','students','teachers'));
+        return view('components.assignments.edit', compact('assignment','subjects','teachers'));
     }
 
     /**

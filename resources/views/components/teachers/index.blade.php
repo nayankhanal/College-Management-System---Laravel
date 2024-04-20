@@ -51,7 +51,9 @@
         <li class="active">Table</li>
       </ol>
     </section>
-
+    <div style="margin-top: 3rem" class="container">
+      <a href="{{route('teachers.create')}}" class="btn btn-primary">Add Teacher</a>
+    </div>
     <!-- Main content -->
 
     <!-- HERE THE MAIN TABLE FOR DEPARTMENTS -->

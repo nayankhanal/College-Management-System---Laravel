@@ -51,7 +51,9 @@
         <li class="active">Tables</li>
       </ol>
     </section>
-
+    <div style="margin-top: 3rem" class="container">
+      <a href="{{route('departments.create')}}" class="btn btn-primary">Add Department</a>
+    </div>
     <!-- Main content -->
 
     <!-- HERE THE MAIN TABLE FOR DEPARTMENTS -->

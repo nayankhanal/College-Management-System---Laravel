@@ -2,7 +2,7 @@
     <!-- Logo -->
     <a href="{{route('home')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      <span class="logo-mini"><b>C</b>MS</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>Admin</b></span>
     </a>
@@ -256,7 +256,7 @@
                 <div class="pull-right">
                   <form action="{{route('logout')}}" method="post">
                     @csrf
-                    <button class="btn btn-default btn-flat">Sign out</button>
+                    <button class="btn btn-default btn-flat" onclick="return confirm('Are you sure you want to log out?')">Sign out</button>
                   </form>
                   <!-- <a href="{{route('logout')}}" class="btn btn-default btn-flat">Sign out</a> -->
                 </div>

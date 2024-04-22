@@ -18,15 +18,20 @@ use App\Http\Controllers\AssignmentController;
 //     return view('welcome');
 // });
 
+Route::group(['middleware'=>['auth','isAdmin']], function() {
+    Route::resource('users',UserController::class);  //admin only...............
+    Route::resource('students',StudentController::class); //admin only...............
+    Route::resource('teachers',TeacherController::class);  //admin only.................
+    Route::resource('enrollments',EnrollmentController::class);  //admin only............
+});
 
-Route::resource('departments',DepartmentController::class)->middleware('auth');
-Route::resource('users',UserController::class)->middleware('auth');
-Route::resource('courses',CourseController::class)->middleware('auth');
-Route::resource('subjects',SubjectController::class)->middleware('auth');
-Route::resource('students',StudentController::class)->middleware('auth');
-Route::resource('teachers',TeacherController::class)->middleware('auth');
-Route::resource('enrollments',EnrollmentController::class)->middleware('auth');
-Route::resource('assignments',AssignmentController::class)->middleware('auth');
+Route::group(['middleware'=>['auth']], function(){
+    Route::resource('departments',DepartmentController::class);  //common for read TS
+    Route::resource('courses',CourseController::class);  //common for read TS
+    Route::resource('subjects',SubjectController::class);  //common for read TS
+    Route::resource('assignments',AssignmentController::class);
+});
+
 
 Route::get('/login', [LoginController::class, 'login'])->name('loginForm');
 Route::post('/login', [LoginController::class, 'store'])->name('login');

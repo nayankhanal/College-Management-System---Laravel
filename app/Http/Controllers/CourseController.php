@@ -24,6 +24,9 @@ class CourseController extends Controller
      */
     public function create()
     {
+        if(auth()->user()->cannot('viewAny', Course::class)){
+            abort(403);
+        }
         $departments = Department::all();
         return view('components.courses.create', compact('departments'));
     }
@@ -33,6 +36,9 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
+        if(auth()->user()->cannot('store', Course::class)){
+            abort(403);
+        }
         try {
             Course::create($request->validated());
             return redirect()->route('courses.index')->with('success','Course created successfully!');
@@ -54,6 +60,9 @@ class CourseController extends Controller
      */
     public function edit(Course $course)
     {
+        if(auth()->user()->cannot('update',$course)){
+            abort(403);
+        }
         $departments = Department::all();
         return view('components.courses.edit', compact('course','departments'));
     }
@@ -63,6 +72,9 @@ class CourseController extends Controller
      */
     public function update(CourseRequest $request, Course $course)
     {
+        if(auth()->user()->cannot('update',$course)){
+            abort(403);
+        }
         try {
             $course->update($request->validated());
             return redirect()->route('courses.index')->with('success','Course updated successfully!');
@@ -76,6 +88,9 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
+        if(auth()->user()->cannot('delete',$course)){
+            abort(403);
+        }
         try {
             $course->delete();
             return redirect()->route('courses.index')->with('success','Course deleted successfully!');

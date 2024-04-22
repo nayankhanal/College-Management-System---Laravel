@@ -24,7 +24,11 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-       return view('components.departments.create'); 
+        if(auth()->user()->cannot('viewAny', Department::class)){
+            abort(403);
+        }else{
+            return view('components.departments.create'); 
+        }
         // return "Hello from department create form";
     }
 
@@ -33,14 +37,17 @@ class DepartmentController extends Controller
      */
     public function store(DepartmentRequest $request)
     {
-        try {
-            // dd($request->validated());
-            Department::create($request->validated());
-            return redirect()->route('departments.index');
-        } catch (\Exception $e) {
-            return redirect()->route('departments.create')->with('error','Something went wrong during department creation!' .$e->getMessage);
+        if ($request->user()->cannot('create', Department::class)) {
+            abort(403);
+        }else{
+            try {
+                // dd($request->validated());
+                Department::create($request->validated());
+                return redirect()->route('departments.index');
+            } catch (\Exception $e) {
+                return redirect()->route('departments.create')->with('error','Something went wrong during department creation!' .$e->getMessage);
+            }
         }
-        
     }
 
     /**
@@ -56,7 +63,11 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        return view('components.departments.edit', compact('department'));
+        if (auth()->user()->cannot('update', $department)) {
+            abort(403);
+        }else{
+            return view('components.departments.edit', compact('department'));
+        }
         // return "Hello from department edit form";
     }
 
@@ -65,11 +76,15 @@ class DepartmentController extends Controller
      */
     public function update(DepartmentRequest $request, Department $department)
     {
-        try {
-            $department->update($request->validated());
-            return redirect()->route('departments.index');
-        } catch (\Exception $e) {
-            return redirect()->route('departments.edit')->with('error','Something went wrong during update!');
+        if ($request->user()->cannot('update', $department)) {
+            abort(403);
+        }else{
+            try {
+                $department->update($request->validated());
+                return redirect()->route('departments.index');
+            } catch (\Exception $e) {
+                return redirect()->route('departments.edit')->with('error','Something went wrong during update!');
+            }
         }
     }
 
@@ -78,11 +93,15 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        try {
-            $department->delete();
-            return redirect()->route('departments.index');
-        } catch (\Exception $e) {
-            return redirect()->route('departments.index')->with('error','Something went wrong during deletion!');
+        if (auth()->user()->cannot('delete', $department)) {
+            abort(403);
+        }else{
+            try {
+                $department->delete();
+                return redirect()->route('departments.index');
+            } catch (\Exception $e) {
+                return redirect()->route('departments.index')->with('error','Something went wrong during deletion!');
+            }
         }
     }
 }

@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+use App\Models\Enrollment;
+
 class EnrollmentRequest extends FormRequest
 {
     /**
@@ -23,7 +25,13 @@ class EnrollmentRequest extends FormRequest
     {
         return [
             'student_id'=>['required','numeric','exists:students,id'],
-            'course_id'=>['required','numeric','exists:courses,id'],
+            'course_id'=>['required','numeric','exists:courses,id',
+                            function ($attribute, $value, $fail) {
+                                if(Enrollment::where('student_id', $this->student_id)->where('course_id', $value)->exists()){
+                                    $fail('Student has already enrolled to the given course!');
+                                }
+                            }
+            ],
         ];
     }
 }

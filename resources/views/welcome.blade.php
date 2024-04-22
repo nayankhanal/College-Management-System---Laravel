@@ -15,6 +15,29 @@
     </section>
     <section class="content">
       <h2>Welcome to Dashboard</h2>
+      <div class="card">
+        <div class="card-one">
+          <h3>Namaste</h3>
+        </div>
+        <div class="card-two">
+          <h3>Namaste</h3>
+        </div>
+        <div>
+          <h3>Namaste</h3>
+        </div>
+        <div>
+          <h3>Namaste</h3>
+        </div>
+        <div>
+          <h3>Namaste</h3>
+        </div>
+        <div>
+          <h3>Namaste</h3>
+        </div>
+        <div>
+          <h3>Namaste</h3>
+        </div>
+      </div>
     </section>
 @endsection
 

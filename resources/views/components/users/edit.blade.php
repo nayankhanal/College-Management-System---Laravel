@@ -43,7 +43,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Create Department
+      Edit User
         <!-- <small>Create Department</small> -->
       </h1>
       <ol class="breadcrumb">
@@ -58,7 +58,7 @@
     <!-- HERE THE MAIN FORM TO CREATE DEPARTMENT -->
 
 <div class="container">
-    <form action="{{route('users.update', $user->id)}}" method="post"><br><br>
+    <form action="{{route('users.update', $user->id)}}" method="post" enctype="multipart/form-data"><br><br>
         @method('put')
         @csrf
     <div class="form-group">
@@ -86,12 +86,20 @@
         <span class="help-block text-danger" style="color: red;">{{$errors->first('role')}}</span>
         @endif
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="password">Password</label>
         <input type="password" name="password" value="{{old('password')}}" class="form-control" id="password" aria-describedby="password" placeholder="Enter password">
         @if($errors->has('password'))
         <span class="help-block text-danger" style="color: red;">{{$errors->first('password')}}</span>
         @endif
+    </div> -->
+    <div class="form-group">
+        <!-- <label for="image">Profile picture</label> -->
+        <!-- <input type="file" class="form-control-file" name="image" value="{{old('image')}}" class="form-control" id="image" aria-describedby="image" placeholder="upload image"> -->
+        <div class="custom-file">
+            <input type="file" class="custom-file-input" id="image" name="image">
+            <label class="custom-file-label" for="image">Upload profile picture</label>
+        </div>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>

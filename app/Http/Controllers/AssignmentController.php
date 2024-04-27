@@ -8,6 +8,8 @@ use App\Models\Assignment;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\Subject;
+use App\Models\Enrollment;
+use App\Models\Course;
 use App\Http\Requests\AssignmentRequest;
 
 use Html2Text\Html2Text;
@@ -19,15 +21,42 @@ class AssignmentController extends Controller
      */
     public function index()
     {
-        $assignments = Assignment::all();
+        if(auth()->user()->cannot('viewAny', Assignment::class)){
+            abort(403);
+        }
 
-        // foreach ($assignments as $assignment) {
-        //     $html2Text = new Html2Text($assignment->description);
-        //     $plainDescription = $html2Text->getText();
-        //     $assignment->description = $plainDescription;
-        // }
+        $role = auth()->user()->role;
 
-        return view('components.assignments.index', compact('assignments'));
+        switch ($role) {
+            case 'admin':
+                $assignments = Assignment::all();
+                return view('components.assignments.index', compact('assignments'));
+                break;
+            
+            case 'teacher':
+                $assignments = Assignment::where('teacher_id',auth()->user()->id)->get();
+                return view('components.assignments.index', compact('assignments'));
+                break;
+
+            case 'student':
+                $student = Student::where('user_id', auth()->user()->id)->pluck('id')->first();
+
+                $enrollments = Enrollment::where('student_id', $student)->pluck('course_id')->all();
+
+                $courses = Course::where('id', $enrollments)->pluck('id')->all();
+
+                $subjects = Subject::whereIn('course_id', $courses)->pluck('course_id')->all();
+
+                $assignments = Assignment::whereIn('subject_id', $subjects)->get();
+
+                return view('components.assignments.index', compact('assignments'));
+                break;
+
+            default:
+                abort(403);
+                break;
+        }
+
     }
 
     /**

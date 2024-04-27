@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserRequest;
 
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Intervention\Image\Facades\Image;
+
+
 class UserController extends Controller
 {
     /**
@@ -33,11 +38,34 @@ class UserController extends Controller
     {
         try {
             $validated = $request->validated();
-            $validated['password'] = bcrypt($validated['password']);
+            // dd($request->file('image'),$validated['image']);
+            $image = $validated['image'];
+            // $validated['password'] = bcrypt($validated['password']);
+            $password = Str::random(8);
+            $validated['password']=bcrypt($password);
+
+            $image_name = time().'_'.$image->getClientOriginalName();
+            // $image = Image::make($image)->resize(320, 240);
+            // dd($image, $image_name);
+            // $image_path = $image->save(public_path('uploads/'.$image_name));
+            // dd($image_path);
+            $image_path = $image->storeAs('uploads',$image_name);
+            // $validated['image'] = $image_path;
+            $user_email = $validated['email'];
+            // dd($image, $image_name, $user_email);
             User::create($validated);
+
+            Mail::send('mail',['user'=>$validated['name'], 'password'=>$password], function ($message) use($user_email) {
+                $message->to($user_email)->subject('Welcome to CMS');
+            });
+
+            // dd("Mail sent");
+
             return redirect()->route('users.index')->with('success','User created successfully!');
         } catch (\Exception $e) {
-            return redirect()->route('users.create')->with('error','Something went wrong during user creation!' .$e->getMessage);
+            dd($e->getMessage());
+            // dd($e->getMessage());
+            return redirect()->route('users.create')->with('error','Something went wrong during user creation!' .$e->getMessage());
         }
     }
 
@@ -63,11 +91,32 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user)
     {
         try {
+
             $validated = $request->validated();
-            $validated['password'] = bcrypt($validated['password']);
+            // dd($request->file('image'),$validated['image']);
+            $image = $validated['image'];
+            // $validated['password'] = bcrypt($validated['password']);
+            $password = Str::random(8);
+            $validated['password']=bcrypt($password);
+
+            $image_name = time().'_'.$image->getClientOriginalName();
+            // $image = Image::make($image)->resize(320, 240);
+            // dd($image, $image_name);
+            $image_path = $image->storeAs('uploads',$image_name);
+            $validated['image'] = $image_path;
+            $user_email = $validated['email'];
             $user->update($validated);
+
+            Mail::send('mail',['user'=>$validated['name'], 'password'=>$password], function ($message) use($user_email) {
+                $message->to($user_email)->subject('Welcome to CMS');
+            });
+
+            // $validated = $request->validated();
+            // $validated['password'] = bcrypt($validated['password']);
+            // $user->update($validated);
             return redirect()->route('users.index')->with('success','User udated successfully!');
         } catch (\Exception $e) {
+            dd($e->getMessage());
             return redirect()->back()->with('error','Something went wrong during user update!' .$e->getMessage());
         }
     }

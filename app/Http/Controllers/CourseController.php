@@ -24,7 +24,7 @@ class CourseController extends Controller
      */
     public function create()
     {
-        if(auth()->user()->cannot('viewAny', Course::class)){
+        if(auth()->user()->cannot('create', Course::class)){
             abort(403);
         }
         $departments = Department::all();

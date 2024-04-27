@@ -13,16 +13,7 @@ class AssignmentPolicy
      */
     public function viewAny(User $user): bool
     {
-        // if($user->role === 'admin'){
-        //     return true;
-        // }elseif($user->role === 'teacher'){
-        //     //
-        // }elseif($user->role == 'student'){
-        //     //
-        // }
-
-        // abort(403);
-        // return $user->role === 'admin';
+        return $user->role === 'admin' || $user->role === 'teacher' || $user->role === 'student';
     }
 
     /**
@@ -30,7 +21,13 @@ class AssignmentPolicy
      */
     public function view(User $user, Assignment $assignment): bool
     {
-        //
+        // if($user->role === 'admin'){
+        //     return true;
+        // }elseif($user->role === 'teacher'){
+        //     return $assignment->teacher_id === $user->teacher->id;
+        // }elseif($user->role === 'student'){
+        //     return $user->student->course->contains($assignment->subject->course);
+        // }
     }
 
     /**
@@ -38,7 +35,7 @@ class AssignmentPolicy
      */
     public function create(User $user): bool
     {
-        // return $user->role === 'admin';
+        return $user->role === 'admin' || $user->role === 'teacher';
     }
 
     /**
@@ -46,7 +43,13 @@ class AssignmentPolicy
      */
     public function update(User $user, Assignment $assignment): bool
     {
-        // return $user->role === 'admin';
+        if($user->role === 'admin'){
+            return true;
+        }elseif($user->role === 'teacher'){
+            return $assignment->teacher_id === $user->student->id;
+        }
+
+        return false;
     }
 
     /**
@@ -54,7 +57,13 @@ class AssignmentPolicy
      */
     public function delete(User $user, Assignment $assignment): bool
     {
-        // return $user->role === 'admin';
+        if($user->role === 'admin'){
+            return true;
+        }elseif($user->role === 'teacher'){
+            return $assignment->teacher_id === $user->student->id;
+        }
+
+        return false;
     }
 
     /**

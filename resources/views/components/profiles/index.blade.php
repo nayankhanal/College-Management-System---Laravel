@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+
 <div class="wrapper">
 
     @include('components.partials.header')
@@ -43,75 +44,52 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Create User
+      Profile
         <!-- <small>Create Department</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Users</a></li>
-        <li class="active">Create</li>
+        <li class="active">Profile</li>
       </ol>
-    </section>
+    </section><br><br>
 
     <!-- Main content -->
 
     <!-- HERE THE MAIN FORM TO CREATE DEPARTMENT -->
-    <!-- @if ($errors->any())
 <div class="container">
-    <div class="alert alert-danger">
-      <ul>
-        @foreach($errors->all() as $error ) 
-          <li>{{$error}}</li>
-        @endforeach
-      </ul>
+        <!-- Main content -->
+        <div class="col-md-8 justify-content-center">
+
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+
+              
+              <img class="profile-user-img img-responsive img-circle" src="{{Storage::url($user->image)}}" alt="User profile picture">
+
+              <h3 class="profile-username text-center">{{$user->name}}</h3>
+
+              <p class="text-muted text-center">{{ucwords($user->role)}}</p>
+
+              <ul class="list-group list-group-unbordered">
+                <li class="list-group-item">
+                  <b>Name</b> <a class="pull-right">{{$user->name}}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Email</b> <a class="pull-right">{{$user->email}}</a>
+                </li>
+                <li class="list-group-item">
+                  <b>Role</b> <a class="pull-right">{{ucwords($user->role)}}</a>
+                </li>
+              </ul>
+
+              <a href="{{route('profiles.edit', [$user->id])}}" class="btn btn-primary btn-block"><b>Edit Profile</b></a>
+            </div>
+            <!-- /.box-body -->
+          </div>
     </div>
-</div>
-@endif -->
-<div class="container">
-    <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data"><br><br>
-        @csrf
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" name="name" value="{{old('name')}}" class="form-control" id="name" aria-describedby="name" placeholder="Enter name">
-        @if($errors->has('name'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('name')}}</span>
-        @endif
-    </div>
-    <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" name="email" value="{{old('email')}}" class="form-control" id="email" aria-describedby="email" placeholder="Enter email">
-        @if($errors->has('email'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('email')}}</span>
-        @endif
-    </div>
-    <div class="form-group">
-        <label for="role">Role</label>
-            <select name="role" id="role" class="form-control">
-                <option value="">Select Role</option>
-                <option value="teacher">Teacher</option>
-                <option value="student">Student</option>
-            </select>
-        @if($errors->has('role'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('role')}}</span>
-        @endif
-    </div>
-    <!-- <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" name="password" value="{{old('password')}}" class="form-control" id="password" aria-describedby="password" placeholder="Enter password">
-        @if($errors->has('password'))
-        <span class="help-block text-danger" style="color: red;">{{$errors->first('password')}}</span>
-        @endif
-    </div> -->
-    <div class="form-group">
-        <!-- <label for="image">Profile picture</label> -->
-        <!-- <input type="file" class="form-control-file" name="image" value="{{old('image')}}" class="form-control" id="image" aria-describedby="image" placeholder="upload image"> -->
-        <div class="custom-file">
-            <input type="file" class="custom-file-input" id="image" name="image">
-            <label class="custom-file-label" for="image">Upload profile picture</label>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+
 </div>
 
     <!-- /.content -->

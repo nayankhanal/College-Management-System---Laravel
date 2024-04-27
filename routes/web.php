@@ -12,6 +12,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\ProfileController;
 
 
 // Route::get('/', function () {
@@ -41,3 +42,5 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 Route::group(['middleware'=>'auth'], function($router){
     $router->get('/', [HomeController::class, 'index'])->name('home');
 });
+
+Route::resource('profiles', ProfileController::class);

@@ -43,65 +43,64 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Create User
+      Edit Profile
         <!-- <small>Create Department</small> -->
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Users</a></li>
-        <li class="active">Create</li>
+        <li class="active">Edit</li>
       </ol>
     </section>
 
     <!-- Main content -->
 
     <!-- HERE THE MAIN FORM TO CREATE DEPARTMENT -->
-    <!-- @if ($errors->any())
+
 <div class="container">
-    <div class="alert alert-danger">
-      <ul>
-        @foreach($errors->all() as $error ) 
-          <li>{{$error}}</li>
-        @endforeach
-      </ul>
-    </div>
-</div>
-@endif -->
-<div class="container">
-    <form action="{{route('users.store')}}" method="post" enctype="multipart/form-data"><br><br>
+    <form action="{{route('profiles.update', $profile->id)}}" method="post" enctype="multipart/form-data"><br><br>
+        @method('put')
         @csrf
     <div class="form-group">
         <label for="name">Name</label>
-        <input type="text" name="name" value="{{old('name')}}" class="form-control" id="name" aria-describedby="name" placeholder="Enter name">
+        <input type="text" name="name" value="{{old('name', $profile->name)}}" class="form-control" id="name" aria-describedby="name" placeholder="Enter name">
         @if($errors->has('name'))
         <span class="help-block text-danger" style="color: red;">{{$errors->first('name')}}</span>
         @endif
     </div>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" name="email" value="{{old('email')}}" class="form-control" id="email" aria-describedby="email" placeholder="Enter email">
+        <input type="email" name="email" value="{{old('email', $profile->email)}}" class="form-control" id="email" aria-describedby="email" placeholder="Enter email">
         @if($errors->has('email'))
         <span class="help-block text-danger" style="color: red;">{{$errors->first('email')}}</span>
         @endif
     </div>
     <div class="form-group">
         <label for="role">Role</label>
-            <select name="role" id="role" class="form-control">
+            <select name="role" id="role" class="form-control" style="pointer-events: none;">
                 <option value="">Select Role</option>
-                <option value="teacher">Teacher</option>
-                <option value="student">Student</option>
+                <option value="teacher" {{$profile->role==='teacher'?'selected':''}}>Teacher</option>
+                <option value="student" {{$profile->role==='student'?'selected':''}}>Student</option>
+                <option value="admin" {{$profile->role==='admin'?'selected':''}}>Admin</option>
             </select>
-        @if($errors->has('role'))
+        <!-- @if($errors->has('role'))
         <span class="help-block text-danger" style="color: red;">{{$errors->first('role')}}</span>
-        @endif
+        @endif -->
     </div>
-    <!-- <div class="form-group">
+    <div class="form-group">
         <label for="password">Password</label>
-        <input type="password" name="password" value="{{old('password')}}" class="form-control" id="password" aria-describedby="password" placeholder="Enter password">
+        <input type="password" name="password" value="{{old('password', $profile->password)}}" class="form-control" id="password" aria-describedby="password" placeholder="Enter password">
         @if($errors->has('password'))
         <span class="help-block text-danger" style="color: red;">{{$errors->first('password')}}</span>
         @endif
-    </div> -->
+    </div>
+    <div class="form-group">
+        <label for="password_confirmation">Confirm Password</label>
+        <input type="password" name="password_confirmation" value="{{old('password', $profile->password)}}" class="form-control" id="password_confirmation" aria-describedby="password_confirmation" placeholder="Confirm password">
+        @if($errors->has('password_confirmation'))
+        <span class="help-block text-danger" style="color: red;">{{$errors->first('password_confirmation')}}</span>
+        @endif
+    </div>
     <div class="form-group">
         <!-- <label for="image">Profile picture</label> -->
         <!-- <input type="file" class="form-control-file" name="image" value="{{old('image')}}" class="form-control" id="image" aria-describedby="image" placeholder="upload image"> -->
@@ -110,6 +109,7 @@
             <label class="custom-file-label" for="image">Upload profile picture</label>
         </div>
     </div>
+    
     <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>

@@ -215,7 +215,7 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="https://res.cloudinary.com/dj8taafis/image/upload/v1713292316/IMG_20230321_132649_xvxwiy.jpg" class="user-image" alt="User Image">
+              <img src="{{Storage::url(auth()->user()->image)}}" class="user-image" alt="User Image">
               <span class="hidden-xs">
                 @if(Auth::check())
                 {{auth()->user()->name}}
@@ -225,7 +225,7 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="https://res.cloudinary.com/dj8taafis/image/upload/v1713292316/IMG_20230321_132649_xvxwiy.jpg" class="img-circle" alt="User Image">
+                <img src="{{Storage::url(auth()->user()->image)}}" class="img-circle" alt="User Image">
                 @if(Auth::check())
                 <p>
                   {{auth()->user()->name}} - Laravel Developer
@@ -251,7 +251,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{route('profiles.index')}}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
                   <form action="{{route('logout')}}" method="post">

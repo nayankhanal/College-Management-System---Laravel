@@ -4,7 +4,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="https://res.cloudinary.com/dj8taafis/image/upload/v1713292316/IMG_20230321_132649_xvxwiy.jpg" class="img-circle" alt="User Image">
+          <img src="{{Storage::url(auth()->user()->image)}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             @if(Auth::check())

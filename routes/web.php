@@ -31,6 +31,9 @@ Route::group(['middleware'=>['auth']], function(){
     Route::resource('courses',CourseController::class);  //common for read TS
     Route::resource('subjects',SubjectController::class);  //common for read TS
     Route::resource('assignments',AssignmentController::class);
+
+    //update password
+    Route::put('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
 });
 
 

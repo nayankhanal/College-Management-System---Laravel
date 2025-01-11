@@ -59,31 +59,18 @@ class ProfileController extends Controller
     {
 
         $validated = $request->validated();
-        // dd($validated, $profile);
-        // dd($request->file('image'),$validated['image']);
-        $image = $validated['image'];
-        // dd($validated);
-        // $validated['password'] = bcrypt($validated['password']);
 
-        $image_name = time().'_'.$image->getClientOriginalName();
-        // $image = Image::make($image)->resize(320, 240);
-        // dd($image, $image_name);
-        $image_path = $image->storeAs('uploads',$image_name,'public');
-        $validated['image'] = $image_path;
+        if ($request->hasFile('image')) {
+            $image = $validated['image'];
+
+            $image_name = time().'_'.$image->getClientOriginalName();
+    
+            $image_path = $image->storeAs('uploads',$image_name,'public');
+            $validated['image'] = $image_path;
+        }
+
         $profile->update($validated);
-        // $profile->image = $image_path;
-        // dd($profile->password);
-        // $profile->save();
-        // dd($profile);
-// dd('hello');
-        // $profile_image = $request->file('image');/*dd($request->validated(),$request,$request->file('image'));*/
-        // $profile_image_name = time().'_'.$profile_image->getClientOriginalName();
-        // // dd($profile_image, $profile_image_name);
-        // $file_path = $profile_image->storeAs('uploads', $profile_image_name, 'public');
-        // // dd($file_path);
-        // $profile->image = $file_path;
-        // $profile->save();
-        // // dd($profile->image);
+
         return redirect()->route('profiles.index');
     }
 

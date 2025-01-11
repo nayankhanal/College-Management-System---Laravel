@@ -31,26 +31,28 @@ class AssignmentController extends Controller
             case 'admin':
                 $assignments = Assignment::all();
                 return view('components.assignments.index', compact('assignments'));
-                break;
+                // break;
             
             case 'teacher':
-                $assignments = Assignment::where('teacher_id',auth()->user()->id)->get();
+                $assignments = Assignment::where('teacher_id',auth()->user()->teacher->id)->get();
                 return view('components.assignments.index', compact('assignments'));
-                break;
+                // break;
 
             case 'student':
                 $student = Student::where('user_id', auth()->user()->id)->pluck('id')->first();
 
                 $enrollments = Enrollment::where('student_id', $student)->pluck('course_id')->all();
-
-                $courses = Course::where('id', $enrollments)->pluck('id')->all();
-
-                $subjects = Subject::whereIn('course_id', $courses)->pluck('course_id')->all();
-
+                
+                // $courses = Course::where('id', $enrollments)->pluck('id')->all();
+                $courses = Course::whereIn('id', $enrollments)->pluck('id')->all();
+                
+                // $subjects = Subject::whereIn('course_id', $courses)->pluck('course_id')->all();
+                $subjects = Subject::whereIn('course_id', $courses)->pluck('id')->all();
+                // dd($subjects);
                 $assignments = Assignment::whereIn('subject_id', $subjects)->get();
-
+                
                 return view('components.assignments.index', compact('assignments'));
-                break;
+                // break;
 
             default:
                 abort(403);
@@ -64,9 +66,8 @@ class AssignmentController extends Controller
      */
     public function create()
     {
-        $subjects = Subject::all();
-        $teachers = Teacher::all();
-        return view('components.assignments.create', compact('subjects','teachers'));
+        $subjects = auth()->user()->teacher->department->courses->pluck('subjects')->flatten();
+        return view('components.assignments.create', compact('subjects'));
     }
 
     /**
@@ -75,10 +76,12 @@ class AssignmentController extends Controller
     public function store(AssignmentRequest $request)
     {
         try {
-            Assignment::create($request->validated());
+            $validated = $request->validated();
+            $validated['teacher_id'] = auth()->user()->teacher->id;
+            Assignment::create($validated);
             return redirect()->route('assignments.index')->with('success','Successfully given assignment!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             return redirect()->route('assignments.create')->with('error','Something went wrong during giving assignment! ');
         }
     }

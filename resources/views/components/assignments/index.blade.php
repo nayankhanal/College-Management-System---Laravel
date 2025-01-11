@@ -52,7 +52,9 @@
       </ol>
     </section>
     <div style="margin-top: 3rem" class="container">
+      @if (auth()->user()->role == 'teacher')
       <a href="{{route('assignments.create')}}" class="btn btn-primary">Provide Assignment</a>
+      @endif
     </div>
     <!-- Main content -->
 
@@ -65,7 +67,9 @@
         <th>Subject</th>
         <th>Teacher</th>
         <th>Assignment</th>
+        @if (auth()->user()->role == 'teacher')
         <th>Action</th>
+        @endif
       </tr>
     </thead>
     <tbody>
@@ -75,6 +79,7 @@
         <td>{{$assignment->subject->name}}</td>
         <td>{{$assignment->teacher->user->name}}</td>
         <td>{{$assignment->title}}</td>
+        @if (auth()->user()->role == 'teacher')
         <td>
             <div class="row">
                 <div class="col-md-6">
@@ -89,6 +94,7 @@
                 </div>
             </div>
         </td>
+        @endif
       </tr>
       <tr>
         <td colspan='5'>

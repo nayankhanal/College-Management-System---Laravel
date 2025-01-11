@@ -24,8 +24,8 @@ class ProfileRequest extends FormRequest
         // dd(request());
         return [
             'name'=>['required','string','max:255'],
-            'email'=>['required','email','unique:users,email,' .$id],
-            'password'=>['required','string','max:255','confirmed'],
+            // 'email'=>['required','email','unique:users,email,' .$id],
+            // 'password'=>['required','string','max:255','confirmed'],
             'role'=>['required','in:admin,teacher,student'],
             'image'=>['nullable','file','mimes:jpeg,png','max:2048']
         ];

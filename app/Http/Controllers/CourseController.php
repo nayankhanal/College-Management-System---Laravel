@@ -36,9 +36,9 @@ class CourseController extends Controller
      */
     public function store(CourseRequest $request)
     {
-        if(auth()->user()->cannot('store', Course::class)){
-            abort(403);
-        }
+        // if(auth()->user()->cannot('store', Course::class)){
+        //     abort(403);
+        // }
         try {
             Course::create($request->validated());
             return redirect()->route('courses.index')->with('success','Course created successfully!');

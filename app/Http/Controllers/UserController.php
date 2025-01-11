@@ -10,6 +10,8 @@ use App\Http\Requests\UserRequest;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
+use Illuminate\Validation\Rules\Password;
+use App\Http\Requests\UpdatePasswordRequest;
 
 
 class UserController extends Controller
@@ -63,7 +65,7 @@ class UserController extends Controller
 
             return redirect()->route('users.index')->with('success','User created successfully!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             // dd($e->getMessage());
             return redirect()->route('users.create')->with('error','Something went wrong during user creation!' .$e->getMessage());
         }
@@ -116,7 +118,7 @@ class UserController extends Controller
             // $user->update($validated);
             return redirect()->route('users.index')->with('success','User udated successfully!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             return redirect()->back()->with('error','Something went wrong during user update!' .$e->getMessage());
         }
     }
@@ -129,8 +131,18 @@ class UserController extends Controller
         try {
             $user->delete();
             return redirect()->route('users.index')->with('success','User deleted successfully!');
-        } catch (\Throwable $th) {
-            return redirect()->route('users.index')->with('error','Something went wrong during user deletion!' .$e->getMessage());
+        } catch (\Throwable $e) {
+            return redirect()->route('users.index')->with('error','Something went wrong during user deletion!' . $e->getMessage());
+        }
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request){
+        try {
+            $validated = $request->validated();
+            auth()->user()->update(['password' => bcrypt($validated['password'])]);
+            return redirect('/profiles')->with('success','Password updated successfully!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error','Something went wrong during password update!' . $e->getMessage());
         }
     }
 }

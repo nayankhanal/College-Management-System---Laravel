@@ -7,9 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-use App\Models\User;
-use App\Models\Student;
-use App\Models\Teacher;
+// use App\Models\User;
+use App\Models\{Student, Teacher};
 
 
 class User extends Authenticatable
@@ -52,11 +51,11 @@ class User extends Authenticatable
         ];
     }
 
-    public function students(){
-        return $this->hasMany(Student::class);
+    public function student(){
+        return $this->hasOne(Student::class);
     }
 
-    public function teachers(){
-        return $this->hasMany(Teachers::class);
+    public function teacher(){
+        return $this->hasOne(Teacher::class);
     }
 }

@@ -47,7 +47,7 @@ class TeacherController extends Controller
             Teacher::create($request->validated());
             return redirect()->route('teachers.index')->with('success','Teacher successfully assigned!');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             return redirect()->route('teachers.create')->with('error','Something went wrong during assigning teacher! ');
         }
     }

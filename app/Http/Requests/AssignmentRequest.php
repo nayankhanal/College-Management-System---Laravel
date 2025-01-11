@@ -23,7 +23,7 @@ class AssignmentRequest extends FormRequest
     {
         return [
             'subject_id'=>['required','numeric','exists:subjects,id'],
-            'teacher_id'=>['required','numeric','exists:teachers,id'],
+            // 'teacher_id'=>['required','numeric','exists:teachers,id'],
             'title'=>['required','string','max:255'],
             'description'=>['required','string','max:2000']
         ];

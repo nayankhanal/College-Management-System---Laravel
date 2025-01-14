@@ -34,7 +34,13 @@ class AssignmentController extends Controller
                 // break;
             
             case 'teacher':
-                $assignments = Assignment::where('teacher_id',auth()->user()->teacher->id)->get();
+                // $assignments = Assignment::where('teacher_id',auth()->user()->teacher->id)->get();
+                $teacher = auth()->user()->teacher;
+                if ($teacher) {
+                    $assignments = Assignment::where('teacher_id', $teacher->id)->get();
+                } else {
+                    $assignments = collect();
+                }
                 return view('components.assignments.index', compact('assignments'));
                 // break;
 
@@ -66,7 +72,12 @@ class AssignmentController extends Controller
      */
     public function create()
     {
-        $subjects = auth()->user()->teacher->department->courses->pluck('subjects')->flatten();
+        // $subjects = auth()->user()->teacher->department->courses->pluck('subjects')->flatten();
+        $teacher = auth()->user()->teacher;
+        $department = $teacher ? $teacher->department : null;
+        $courses = $department ? $department->courses : null;
+        $subjects = $courses ? $courses->pluck('subjects')->flatten() : collect();
+
         return view('components.assignments.create', compact('subjects'));
     }
 

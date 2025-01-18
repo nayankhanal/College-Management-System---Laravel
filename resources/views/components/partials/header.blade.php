@@ -2,9 +2,9 @@
     <!-- Logo -->
     <a href="{{route('home')}}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>C</b>MS</span>
+      <span class="logo-mini"><b>E</b>S</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b></span>
+      <span class="logo-lg"><b>Edu</b>Sphere</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -20,7 +20,7 @@
               <img src="{{Storage::url(auth()->user()->image)}}" class="user-image" alt="User Image">
               <span class="hidden-xs">
                 @if(Auth::check())
-                {{auth()->user()->name}}
+                {{ucwords(auth()->user()->name)}}
                 @endif
               </span>
             </a>
@@ -30,7 +30,7 @@
                 <img src="{{Storage::url(auth()->user()->image)}}" class="img-circle" alt="User Image">
                 @if(Auth::check())
                 <p>
-                  {{auth()->user()->name}} - {{auth()->user()->role}}
+                  {{ucwords(auth()->user()->name)}} - {{ucwords(auth()->user()->role)}}
                   <small>Member since Birth</small>
                 </p>
                 @endif

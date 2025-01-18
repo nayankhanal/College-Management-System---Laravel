@@ -23,7 +23,7 @@ class TeacherRequest extends FormRequest
     {
         return [
             'user_id'=>['required','numeric','exists:users,id'],
-            'department_id'=>['required','numeric','exists:users,id']
+            'department_id'=>['required','numeric','exists:departments,id']
         ];
     }
 }

@@ -72,9 +72,9 @@
     <div class="form-group">
         <label for="user_id">Teacher</label>
             <select name="user_id" id="user_id" class="form-control">
-                <option value="">Select Student</option>
+                <option value="">Select Teacher</option>
                 @foreach($teachers as $teacher)
-                <option value="{{$teacher->id}}">{{$teacher->name}}</option>
+                <option value="{{$teacher->id}}">{{ucwords($teacher->name)}}</option>
                 @endforeach
             </select>
         @if($errors->has('user_id'))
@@ -86,7 +86,7 @@
             <select name="department_id" id="department_id" class="form-control">
                 <option value="">Select Department</option>
                 @foreach($departments as $department)
-                <option value="{{$department->id}}">{{$department->name}}</option>
+                <option value="{{$department->id}}">{{ucwords($department->name)}}</option>
                 @endforeach
             </select>
         @if($errors->has('department_id'))

@@ -6,7 +6,7 @@
     <section class="content-header">
       <h1>
         Dashboard
-        <small>Control panel</small>
+        <small>Dashboard</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -14,29 +14,8 @@
       </ol>
     </section>
     <section class="content">
-      <h2>Welcome to Dashboard</h2>
+      <h2>Welcome to <b>Edu</b>Sphere</h2>
       <div class="card">
-        <div class="card-one">
-          <h3>Namaste</h3>
-        </div>
-        <div class="card-two">
-          <h3>Namaste</h3>
-        </div>
-        <div>
-          <h3>Namaste</h3>
-        </div>
-        <div>
-          <h3>Namaste</h3>
-        </div>
-        <div>
-          <h3>Namaste</h3>
-        </div>
-        <div>
-          <h3>Namaste</h3>
-        </div>
-        <div>
-          <h3>Namaste</h3>
-        </div>
       </div>
     </section>
 @endsection

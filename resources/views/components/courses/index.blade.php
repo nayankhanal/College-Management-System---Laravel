@@ -71,8 +71,8 @@
     @foreach($courses as $course)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$course->name}}</td>
-        <td>{{$course->department->name}}</td>
+        <td>{{ucwords($course->name)}}</td>
+        <td>{{ucwords($course->department->name)}}</td>
         <td>
             <div class="row">
                 <div class="col-md-6">

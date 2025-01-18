@@ -35,6 +35,7 @@ class TeacherController extends Controller
         }
 
         $departments = Department::all();
+        // dd($departments, $teachers);
         return view('components.teachers.create', compact('teachers','departments'));
     }
 
@@ -44,6 +45,7 @@ class TeacherController extends Controller
     public function store(TeacherRequest $request)
     {
         try {
+            // dd($request->validated());
             Teacher::create($request->validated());
             return redirect()->route('teachers.index')->with('success','Teacher successfully assigned!');
         } catch (\Exception $e) {

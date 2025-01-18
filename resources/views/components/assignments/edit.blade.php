@@ -75,7 +75,7 @@
             <select name="subject_id" id="subject_id" class="form-control" style="pointer-events: none;">
                 <!-- <option value="">Select Student</option> -->
                 @foreach($subjects as $subject)
-                <option value="{{$assignment->subject->id}}" {{$subject->id == $assignment->subject_id ? 'selected' : ''}}>{{$assignment->subject->name}}</option>
+                <option value="{{$assignment->subject->id}}" {{$subject->id == $assignment->subject_id ? 'selected' : ''}}>{{ucwords($assignment->subject->name)}}</option>
                 @endforeach
             </select>
         <!-- @if($errors->has('user_id'))
@@ -87,7 +87,7 @@
             <select name="teacher_id" id="teacher_id" class="form-control" style="pointer-events: none;">
                 <option value="">Select Teacher</option>
                 @foreach($teachers as $teacher)
-                <option value="{{$teacher->id}}" {{$teacher->id == $assignment->teacher_id ? 'selected' : ''}}>{{$assignment->teacher->user->name}}</option>
+                <option value="{{$teacher->id}}" {{$teacher->id == $assignment->teacher_id ? 'selected' : ''}}>{{ucwords($assignment->teacher->user->name)}}</option>
                 @endforeach
             </select>
         @if($errors->has('teacher_id'))

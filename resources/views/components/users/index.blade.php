@@ -72,9 +72,9 @@
     @foreach($users as $user)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$user->name}}</td>
+        <td>{{ucwords($user->name)}}</td>
         <td>{{$user->email}}</td>
-        <td>{{$user->role}}</td>
+        <td>{{ucwords($user->role)}}</td>
         <td>
             <div class="row">
                 <div class="col-md-6">

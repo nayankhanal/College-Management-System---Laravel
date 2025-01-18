@@ -72,9 +72,9 @@
     @foreach($subjects as $subject)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$subject->name}}</td>
-        <td>{{$subject->course->name}}</td>
-        <td>{{$subject->course->department->name}}</td>
+        <td>{{ucwords($subject->name)}}</td>
+        <td>{{ucwords($subject->course->name)}}</td>
+        <td>{{ucwords($subject->course->department->name)}}</td>
         <td>
             <div class="row">
                 <div class="col-md-6">

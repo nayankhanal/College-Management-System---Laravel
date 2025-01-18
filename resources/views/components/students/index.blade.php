@@ -71,8 +71,8 @@
     @foreach($students as $student)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$student->user->name}}</td>
-        <td>{{$student->course->name}}</td>
+        <td>{{ucwords($student->user->name)}}</td>
+        <td>{{ucwords($student->course->name)}}</td>
         <td>
             <div class="row">
                 <div class="col-md-6">

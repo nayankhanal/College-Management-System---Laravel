@@ -74,7 +74,7 @@
             <select name="student_id" id="student_id" class="form-control">
                 <option value="">Select Student</option>
                 @foreach($students as $student)
-                <option value="{{$student->id}}">{{$student->user->name}}</option>
+                <option value="{{$student->id}}">{{ucwords($student->user->name)}}</option>
                 @endforeach
             </select>
         @if($errors->has('student_id'))
@@ -86,7 +86,7 @@
             <select name="course_id" id="course_id" class="form-control">
                 <option value="">Select Course</option>
                 @foreach($courses as $course)
-                <option value="{{$course->id}}">{{$course->name}}</option>
+                <option value="{{$course->id}}">{{ucwords($course->name)}}</option>
                 @endforeach
             </select>
         @if($errors->has('course_id'))

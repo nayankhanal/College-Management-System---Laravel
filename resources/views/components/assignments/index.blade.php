@@ -47,7 +47,7 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i>Home</a></li>
-        <li><a href="#"><i class="fa fa-dashboard"></i>Enrollments</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i>Assignments</a></li>
         <li class="active">Table</li>
       </ol>
     </section>
@@ -76,9 +76,9 @@
     @foreach($assignments as $assignment)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$assignment->subject->name}}</td>
-        <td>{{$assignment->teacher->user->name}}</td>
-        <td>{{$assignment->title}}</td>
+        <td>{{ucwords($assignment->subject->name)}}</td>
+        <td>{{ucwords($assignment->teacher->user->name)}}</td>
+        <td>{{ucfirst($assignment->title)}}</td>
         @if (auth()->user()->role == 'teacher')
         <td>
             <div class="row">

@@ -68,13 +68,13 @@
               
               <img class="profile-user-img img-responsive img-circle" src="{{Storage::url($user->image)}}" alt="User profile picture">
 
-              <h3 class="profile-username text-center">{{$user->name}}</h3>
+              <h3 class="profile-username text-center">{{ucwords($user->name)}}</h3>
 
               <p class="text-muted text-center">{{ucwords($user->role)}}</p>
 
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Name</b> <a class="pull-right">{{$user->name}}</a>
+                  <b>Name</b> <a class="pull-right">{{ucwords($user->name)}}</a>
                 </li>
                 <li class="list-group-item">
                   <b>Email</b> <a class="pull-right">{{$user->email}}</a>

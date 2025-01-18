@@ -73,7 +73,7 @@
             <select name="department_id" id="department_id" class="form-control">
                 <option value="">Select Department</option>
                 @foreach($departments as $department)
-                <option value="{{$department->id}}" {{$course->department->id == $department->id ? 'selected' : ''}}>{{$department->name}}</option>
+                <option value="{{$department->id}}" {{$course->department->id == $department->id ? 'selected' : ''}}>{{ucwords($department->name)}}</option>
                 @endforeach
             </select>
         @if($errors->has('department'))

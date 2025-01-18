@@ -40,33 +40,31 @@ class UserController extends Controller
     {
         try {
             $validated = $request->validated();
-            // dd($request->file('image'),$validated['image']);
-            $image = $validated['image'];
-            // $validated['password'] = bcrypt($validated['password']);
+
+            if ($request->hasFile('image')) {
+                // $validated['image'] = $request->file('image');
+                $image = $validated['image'];
+    
+                $image_name = time().'_'.$image->getClientOriginalName();
+    
+                $image_path = $image->storeAs('uploads',$image_name,'public');
+                $validated['image'] = $image_path;
+            }
+
             $password = Str::random(8);
+            error_log($password);
             $validated['password']=bcrypt($password);
 
-            $image_name = time().'_'.$image->getClientOriginalName();
-            // $image = Image::make($image)->resize(320, 240);
-            // dd($image, $image_name);
-            // $image_path = $image->save(public_path('uploads/'.$image_name));
-            // dd($image_path);
-            $image_path = $image->storeAs('uploads',$image_name);
-            // $validated['image'] = $image_path;
             $user_email = $validated['email'];
-            // dd($image, $image_name, $user_email);
+
             User::create($validated);
 
             Mail::send('mail',['user'=>$validated['name'], 'password'=>$password], function ($message) use($user_email) {
-                $message->to($user_email)->subject('Welcome to CMS');
+                $message->to($user_email)->subject('Welcome to EduSphere');
             });
-
-            // dd("Mail sent");
 
             return redirect()->route('users.index')->with('success','User created successfully!');
         } catch (\Exception $e) {
-            // dd($e->getMessage());
-            // dd($e->getMessage());
             return redirect()->route('users.create')->with('error','Something went wrong during user creation!' .$e->getMessage());
         }
     }

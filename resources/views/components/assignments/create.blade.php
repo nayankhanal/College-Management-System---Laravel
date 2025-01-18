@@ -52,7 +52,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Give Assignments
+      Provide Assignments
         <!-- <small>Create Department</small> -->
       </h1>
       <ol class="breadcrumb">
@@ -75,7 +75,7 @@
                   <option value="">Select Subject</option>
                   @foreach($subjects as $subject)
                   <option value="{{$subject->id}}">
-                    {{$subject->name}}
+                    {{ucwords($subject->name)}}
                   </option>
                   @endforeach
               </select>

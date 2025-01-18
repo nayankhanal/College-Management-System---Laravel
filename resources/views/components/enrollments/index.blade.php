@@ -71,8 +71,8 @@
     @foreach($enrollments as $enrollment)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$enrollment->student->user->name}}</td>
-        <td>{{$enrollment->course->name}}</td>
+        <td>{{ucwords($enrollment->student->user->name)}}</td>
+        <td>{{ucwords($enrollment->course->name)}}</td>
         <td>
             <div class="row">
                 <div class="col-md-6">

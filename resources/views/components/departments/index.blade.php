@@ -70,7 +70,7 @@
     @foreach($departments as $department)
       <tr>
         <td>{{$loop->iteration}}</td>
-        <td>{{$department->name}}</td>
+        <td>{{ucwords($department->name)}}</td>
         <td>
         <div class="row">
     <div class="col-md-6">

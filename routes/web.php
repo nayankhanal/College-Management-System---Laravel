@@ -36,6 +36,9 @@ Route::group(['middleware'=>['auth']], function(){
     Route::put('/update-password', [UserController::class, 'updatePassword'])->name('password.update');
 });
 
+// Route::get('/signin', function () {
+//     return view('auth.signin');
+// })->name('signinForm');
 
 Route::get('/login', [LoginController::class, 'login'])->name('loginForm');
 Route::post('/login', [LoginController::class, 'store'])->name('login');

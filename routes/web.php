@@ -50,3 +50,8 @@ Route::group(['middleware'=>'auth'], function($router){
 });
 
 Route::resource('profiles', ProfileController::class);
+
+Route::get('/forget-password', [UserController::class, 'forgetPasswordForm'])->name('forgetPasswordForm');
+Route::get('/reset-password', [UserController::class, 'resetPasswordForm'])->name('resetPasswordForm');
+
+Route::post('/send-otp', [UserController::class, 'sendOtp'])->name('sendOtp');

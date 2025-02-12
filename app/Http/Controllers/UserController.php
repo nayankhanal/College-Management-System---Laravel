@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 use Intervention\Image\Facades\Image;
 use Illuminate\Validation\Rules\Password;
-use App\Http\Requests\UpdatePasswordRequest;
+use App\Http\Requests\{UpdatePasswordRequest, OtpRequest};
 
 
 class UserController extends Controller
@@ -141,6 +141,38 @@ class UserController extends Controller
             return redirect('/profiles')->with('success','Password updated successfully!');
         } catch (\Exception $e) {
             return redirect()->back()->with('error','Something went wrong during password update!' . $e->getMessage());
+        }
+    }
+
+    public function forgetPasswordForm(){
+        return view('components.users.forget-password');
+    }
+
+    public function resetPasswordForm() {
+        return view('components.users.reset-password');
+    }
+
+    public function sendOtp(OtpRequest $request){
+        try {
+            $validated = $request->validated();
+            $user_email = $validated['email'];
+    
+            $user = User::where('email', $user_email);
+    
+            if (!$user->exists()) {
+              return redirect()->back()->with(['error'=>'User with this email does not exist.']);
+            }
+    
+            $otp = rand(1000, 9999);
+    
+            Mail::send('otp-mail',['user'=>$user->email, 'otp'=>$otp], function ($message) use($user_email) {
+                $message->to($user_email)->subject('Password reset OTP');
+            });
+    
+            return redirect()->route('resetPasswordForm');
+        } catch (\Exception $e) {
+            // return redirect()->route('forgetPasswordForm')->with(['error'=>'Something went wrong. Please try again!']);
+            return redirect()->route('forgetPasswordForm')->with(['error'=>$e->getMessage()]);
         }
     }
 }

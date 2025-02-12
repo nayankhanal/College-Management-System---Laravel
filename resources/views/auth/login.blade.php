@@ -308,6 +308,10 @@
                 </div>
                 @endif
 
+                <div class="forget-psw-div" style="margin: 14px;">
+                    <a href="{{route('forgetPasswordForm')}}" style="font-size: 14px; display: flex; justify-content: flex-end; color: blue;">Forget password?</a>
+                </div>
+                
                 <input type="submit" value="Login" class="form-button">
 
             </form>
